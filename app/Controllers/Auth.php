@@ -65,7 +65,7 @@ class Auth extends Controller
             $model = new UserModel();
             $data = [
                 'username' => $this->request->getVar('username'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+                'password' => $this->request->getVar('password'), // JANGAN DI-HASH MANUAL
                 'role' => 'teknisi'
             ];
             $model->save($data);

@@ -14,21 +14,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url('admin/dashboard') ?>">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url('admin/users') ?>">Manajemen User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url('admin/kas_masuk') ?>">Kas Masuk</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= site_url('admin/pengajuan') ?>">Pengajuan</a>
-                    </li>
-                </ul>
+        
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <span class="nav-link">Halo, <?= session()->get('username') ?> (Admin)</span>

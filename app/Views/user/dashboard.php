@@ -1,4 +1,4 @@
-<?php include(APPPATH . 'Views/layouts/user/header.php'); ?>
+<?php include(APPPATH . 'Views/layouts/header.php'); ?>
 
 <div class="container-fluid">
     <div class="row">
@@ -57,4 +57,4 @@
     </div>
 </div>
 
-<?php include(APPPATH . 'Views/layouts/user/footer.php'); ?>
+<?php include(APPPATH . 'Views/layouts/footer.php'); ?>
