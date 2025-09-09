@@ -17,6 +17,10 @@
         main {
             flex: 1;
         }
+
+        img {
+            height: 35px;
+        }
     </style>
 </head>
 
@@ -24,7 +28,11 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="<?= site_url('/') ?>">💰 Sistem Kas GoNet</a>
+             <a href="/admin/dashboard" class="navbar-brand" id="sidebarToggle">
+          <img src="/uploads/logo.png" alt="Logo Gonet" class="brand-logo">
+          <span class="arsip-surat">Sistem Kas <span class="brand-name">GONET</span></span>
+        </a>
+
             <div class="d-flex ms-auto">
                 <span class="navbar-text text-white me-3">
                     Halo, <?= session()->get('username') ?> (<?= ucfirst(session()->get('role')) ?>)
@@ -48,6 +56,7 @@
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
+<<<<<<< HEAD
 
                         <?php if (session()->get('role') === 'admin'): ?>
                             <li class="nav-item">
@@ -94,6 +103,28 @@
                                 </a>
                             </li>
                         <?php endif; ?>
+=======
+                        <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/users') ?>">
+                                <i class="bi bi-people"></i> Manajemen User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_masuk' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/kas_masuk') ?>">
+                                <i class="bi bi-cash-coin"></i> Kas Masuk
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/pengajuan') ?>">
+                                <i class="bi bi-clipboard-check"></i> Pengajuan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/laporan') ?>">
+                                <i class="bi bi-bar-chart"></i> Laporan
+                            </a>
+                        </li>
+>>>>>>> 6723685caa9bc5015c19a46c3f399bdf46b44347
                     </ul>
                 </div>
             </div>
