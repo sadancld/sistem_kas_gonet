@@ -14,11 +14,14 @@ class UserModel extends Model
     
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
-    
+
     protected function hashPassword(array $data)
     {
-        if (isset($data['data']['password'])) {
-            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+        if (!empty($data['data']['password'])) {
+            // Cek apakah sudah hash (prefix $2y$ berarti sudah hashed)
+            if (substr($data['data']['password'], 0, 4) !== '$2y$') {
+                $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+            }
         }
         return $data;
     }

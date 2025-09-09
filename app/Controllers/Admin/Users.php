@@ -32,9 +32,10 @@ class Users extends BaseController
             $model = new UserModel();
             $data = [
                 'username' => $this->request->getVar('username'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-                'role' => $this->request->getVar('role')
+                'password' => $this->request->getVar('password'), // plain password saja!
+                'role'     => $this->request->getVar('role')
             ];
+
             $model->save($data);
             return redirect()->to('/admin/users')->with('success', 'User berhasil ditambahkan.');
         } else {
@@ -68,11 +69,12 @@ class Users extends BaseController
                 'username' => $this->request->getVar('username'),
                 'role' => $this->request->getVar('role')
             ];
-            
+
             if ($this->request->getVar('password')) {
-                $data['password'] = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
+                $data['password'] = $this->request->getVar('password'); // plain password
             }
-            
+
+
             $model->update($id, $data);
             return redirect()->to('/admin/users')->with('success', 'User berhasil diupdate.');
         } else {

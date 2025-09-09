@@ -60,13 +60,13 @@ class Auth extends Controller
             'password' => 'required|min_length[6]|max_length[200]',
             'confpassword' => 'matches[password]'
         ];
-        
+
         if ($this->validate($rules)) {
             $model = new UserModel();
             $data = [
                 'username' => $this->request->getVar('username'),
-                'password' => $this->request->getVar('password'), // JANGAN DI-HASH MANUAL
-                'role' => 'teknisi'
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT), // HASH password
+                'role' => 'teknisi' // default teknisi
             ];
             $model->save($data);
             return redirect()->to('/login')->with('success', 'Registrasi berhasil. Silakan login.');
