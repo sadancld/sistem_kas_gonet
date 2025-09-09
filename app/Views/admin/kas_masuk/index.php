@@ -1,4 +1,6 @@
-<?php include(APPPATH . 'Views/layouts/header.php'); ?>
+<?= $this->extend('layouts/admin') ?>
+
+<?= $this->section('content') ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Data Kas Masuk</h1>
@@ -22,19 +24,19 @@
         </thead>
         <tbody>
             <?php foreach ($kas_masuk as $kas): ?>
-            <tr>
-                <td><?= $kas['id'] ?></td>
-                <td><?= date('d/m/Y H:i', strtotime($kas['created_at'])) ?></td>
-                <td>Rp <?= number_format($kas['nominal'], 0, ',', '.') ?></td>
-                <td><?= $kas['keterangan'] ?></td>
-                <td>
-                    <a href="<?= site_url('admin/kas_masuk/edit/' . $kas['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="<?= site_url('admin/kas_masuk/delete/' . $kas['id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data?')">Hapus</a>
-                </td>
-            </tr>
+                <tr>
+                    <td><?= $kas['id'] ?></td>
+                    <td><?= date('d/m/Y H:i', strtotime($kas['created_at'])) ?></td>
+                    <td>Rp <?= number_format($kas['nominal'], 0, ',', '.') ?></td>
+                    <td><?= $kas['keterangan'] ?></td>
+                    <td>
+                        <a href="<?= site_url('admin/kas_masuk/edit/' . $kas['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="<?= site_url('admin/kas_masuk/delete/' . $kas['id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus data?')">Hapus</a>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 
-<?php include(APPPATH . 'Views/layouts/footer.php'); ?>
+<?= $this->endSection() ?>
