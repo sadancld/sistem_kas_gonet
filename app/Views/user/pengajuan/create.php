@@ -1,5 +1,6 @@
-<?php include(APPPATH . 'Views/layouts/user/header.php'); ?>
+<?= $this->extend('layouts/teknisi') ?>
 
+<?= $this->section('content') ?>
 <div class="row">
     <div class="col-md-6">
         <div class="card">
@@ -32,4 +33,4 @@
     </div>
 </div>
 
-<?php include(APPPATH . 'Views/layouts/user/footer.php'); ?>
+<?= $this->endSection() ?>

@@ -1,10 +1,11 @@
-<?php include(APPPATH . 'Views/layouts/header.php'); ?>
+<?= $this->extend('layouts/teknisi') ?>
 
+<?= $this->section('content') ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <h1 class="h3 mb-4">Dashboard User</h1>
-            
+
             <div class="row">
                 <div class="col-md-3">
                     <div class="card bg-primary text-white">
@@ -39,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row mt-4">
                 <div class="col-md-12">
                     <div class="card">
@@ -57,4 +58,4 @@
     </div>
 </div>
 
-<?php include(APPPATH . 'Views/layouts/footer.php'); ?>
+<?= $this->endSection() ?>

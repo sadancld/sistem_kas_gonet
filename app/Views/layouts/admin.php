@@ -1,4 +1,3 @@
-<!-- app/Views/layout/admin.php -->
 <!DOCTYPE html>
 <html lang="id">
 
@@ -25,15 +24,10 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?= site_url('/') ?>">Sistem Kas GoNet</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
+            <a class="navbar-brand fw-bold" href="<?= site_url('/') ?>">💰 Sistem Kas GoNet</a>
             <div class="d-flex ms-auto">
                 <span class="navbar-text text-white me-3">
-                    Halo, <?= session()->get('username') ?>
-                    (<?= ucfirst(session()->get('role')) ?>)
+                    Halo, <?= session()->get('username') ?> (<?= ucfirst(session()->get('role')) ?>)
                 </span>
                 <a class="btn btn-sm btn-outline-light" href="<?= site_url('logout') ?>">
                     <i class="bi bi-box-arrow-right"></i> Logout
@@ -45,39 +39,61 @@
     <div class="container-fluid flex-grow-1">
         <div class="row">
             <!-- SIDEBAR -->
-            <div class="col-md-2 col-lg-2 d-md-block bg-light sidebar collapse offcanvas-md offcanvas-start shadow-sm" id="sidebarMenu">
-                <div class="position-sticky pt-3">
+            <div class="col-md-2 col-lg-2 bg-light shadow-sm" id="sidebarMenu">
+                <div class="pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'dashboard' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/dashboard') ?>">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'dashboard' ? 'active fw-bold' : '' ?>"
+                                href="<?= site_url('admin/dashboard') ?>">
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/users') ?>">
-                                <i class="bi bi-people"></i> Manajemen User
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_masuk' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/kas_masuk') ?>">
-                                <i class="bi bi-cash-coin"></i> Kas Masuk
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/pengajuan') ?>">
-                                <i class="bi bi-clipboard-check"></i> Pengajuan
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/laporan') ?>">
-                                <i class="bi bi-bar-chart"></i> Laporan
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'disposisi' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/disposisi') ?>">
-                                <i class="bi bi-share"></i> Disposisi
-                            </a>
-                        </li>
+
+                        <?php if (session()->get('role') === 'admin'): ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('admin/users') ?>">
+                                    <i class="bi bi-people"></i> Manajemen User
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_masuk' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('admin/kas_masuk') ?>">
+                                    <i class="bi bi-cash-coin"></i> Pemasukan Kas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('admin/pengajuan') ?>">
+                                    <i class="bi bi-clipboard-check"></i> Pengajuan Kas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_keluar' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('admin/kas_keluar') ?>">
+                                    <i class="bi bi-wallet2"></i> Kas Keluar
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('admin/laporan') ?>">
+                                    <i class="bi bi-bar-chart"></i> Laporan
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('user/pengajuan') ?>">
+                                    <i class="bi bi-plus-circle"></i> Ajukan Kas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= service('uri')->getSegment(2) === 'history' ? 'active fw-bold' : '' ?>"
+                                    href="<?= site_url('user/history') ?>">
+                                    <i class="bi bi-clock-history"></i> History Pengajuan
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -92,7 +108,7 @@
     <!-- FOOTER -->
     <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div class="container">
-            <small>&copy; <?= date('Y') ?> Sistem Kas GoNet. All rights reserved.</small>
+            <small>&copy; <?= date('Y') ?> Sistem Kas GoNet. Dibuat untuk manajemen kas teknisi & penagih.</small>
         </div>
     </footer>
 

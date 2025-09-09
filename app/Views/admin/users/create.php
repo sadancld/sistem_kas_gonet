@@ -23,7 +23,6 @@
         <label for="role" class="form-label">Role</label>
         <select class="form-select" id="role" name="role" required>
             <option value="teknisi">Teknisi</option>
-            <option value="penagih">Penagih</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Simpan</button>

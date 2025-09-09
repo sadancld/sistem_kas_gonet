@@ -1,5 +1,6 @@
-<?php include(APPPATH . 'Views/layouts/user/header.php'); ?>
+<?= $this->extend('layouts/teknisi') ?>
 
+<?= $this->section('content') ?>
 <div class="row">
     <div class="col-md-12">
         <h2>Pengajuan Kas</h2>
@@ -13,4 +14,4 @@
     </div>
 </div>
 
-<?php include(APPPATH . 'Views/layouts/user/footer.php'); ?>
+<?= $this->endSection() ?>
