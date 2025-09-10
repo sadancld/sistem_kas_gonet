@@ -48,5 +48,6 @@ $routes->group('user', ['filter' => 'auth:teknisi,penagih'], function ($routes) 
     $routes->get('pengajuan', 'User\Pengajuan::index');
     $routes->get('pengajuan/create', 'User\Pengajuan::create');
     $routes->post('pengajuan/store', 'User\Pengajuan::store');
+    $routes->get('pengajuan/index', 'User\Pengajuan::index');
     $routes->get('pengajuan/history', 'User\Pengajuan::history');
 });
