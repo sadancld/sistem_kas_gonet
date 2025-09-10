@@ -66,7 +66,7 @@ class Auth extends Controller
             $data = [
                 'username' => $this->request->getVar('username'),
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT), // HASH password
-                'role' => 'teknisi' // default teknisi
+                'role' => 'user'
             ];
             $model->save($data);
             return redirect()->to('/login')->with('success', 'Registrasi berhasil. Silakan login.');
