@@ -57,13 +57,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= site_url('user/pengajuan/create') ?>">
-                                <i class="bi bi-pencil-square"></i> Buat Pengajuan Kas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= site_url('user/pengajuan/history') ?>">
-                                <i class="bi bi-clock-history"></i> History Pengajuan
+                            <a class="nav-link" href="<?= site_url('user/pengajuan/index') ?>">
+                                <i class="bi bi-pencil-square"></i> Pengajuan Kas
                             </a>
                         </li>
                     </ul>

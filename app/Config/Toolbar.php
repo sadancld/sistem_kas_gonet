@@ -36,6 +36,7 @@ class Toolbar extends BaseConfig
 
     // bisa dihilangi
     public array $collectors = [
+<<<<<<< HEAD
         // Timers::class,
         // Database::class,
         // Logs::class,
@@ -44,6 +45,9 @@ class Toolbar extends BaseConfig
         // Files::class,
         // Routes::class,
         // Events::class,
+=======
+        
+>>>>>>> f52dbe1d0b58d43b9254e81488c5df03b34546f9
     ];
 
     /**
