@@ -7,7 +7,7 @@ class KasSaldoModel extends Model
 {
     protected $table = 'kas_saldo';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['saldo_akhir'];
-    protected $useTimestamps = true;
+    protected $allowedFields = ['saldo_akhir', 'updated_at'];    
+    //protected $useTimestamps = true;
     protected $updatedField = 'updated_at';
 }

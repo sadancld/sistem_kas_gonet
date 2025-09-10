@@ -26,21 +26,21 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-       \   <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <div class="container-fluid">
              <a href="/admin/dashboard" class="navbar-brand" id="sidebarToggle">
           <img src="/uploads/logo.png" alt="Logo Gonet" class="brand-logo">
           <span class="arsip-surat">Sistem Kas <span class="brand-name">GONET</span></span>
         </a>
 
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <span class="nav-link">Halo, <?= session()->get('username') ?> (Teknisi)</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('logout') ?>">Logout</a>
-                </li>
-            </ul>
+            <div class="d-flex ms-auto">
+                <span class="navbar-text text-white me-3">
+                    Halo, <?= session()->get('username') ?> (<?= ucfirst(session()->get('role')) ?>)
+                </span>
+                <a class="btn btn-sm btn-outline-light" href="<?= site_url('logout') ?>">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+            </div>
         </div>
     </nav>
 

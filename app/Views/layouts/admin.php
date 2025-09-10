@@ -66,6 +66,11 @@
                                 <i class="bi bi-cash-coin"></i> Kas Masuk
                             </a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_keluar' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/kas_keluar') ?>">
+                                <i class="bi bi-cash-stack"></i> Kas Keluar
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/pengajuan') ?>">
                                 <i class="bi bi-clipboard-check"></i> Pengajuan

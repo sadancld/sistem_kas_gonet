@@ -20,8 +20,8 @@ class Dashboard extends BaseController
         
         $data = [
             'saldo' => $kasSaldoModel->first(),
-            'total_masuk' => $kasMasukModel->selectSum('nominal')->first(),
-            'total_keluar' => $kasKeluarModel->selectSum('nominal')->first(),
+            'total_masuk' => $kasMasukModel->selectSum('nominal', 'total')->first(),
+            'total_keluar' => $kasKeluarModel->selectSum('nominal', 'total')->first(),
             'total_pengajuan' => $pengajuanModel->countAll(),
             'total_users' => $userModel->where('role !=', 'admin')->countAllResults(),
             'pengajuan_pending' => $pengajuanModel->where('status', 'pending')->countAllResults()

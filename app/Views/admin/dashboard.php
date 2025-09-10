@@ -19,7 +19,7 @@
                     <div class="card bg-success text-white">
                         <div class="card-body">
                             <h5 class="card-title">Total Pemasukan</h5>
-                            <h3 class="card-text">Rp <?= number_format($total_masuk->nominal ?? 0, 0, ',', '.') ?></h3>
+                            <h3 class="card-text">Rp <?= number_format($total_masuk['total'] ?? 0, 0, ',', '.') ?></h3>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="card bg-danger text-white">
                         <div class="card-body">
                             <h5 class="card-title">Total Pengeluaran</h5>
-                            <h3 class="card-text">Rp <?= number_format($total_keluar->nominal ?? 0, 0, ',', '.') ?></h3>
+                            <h3 class="card-text">Rp <?= number_format($total_keluar['total'] ?? 0, 0, ',', '.') ?></h3>
                         </div>
                     </div>
                 </div>
