@@ -13,13 +13,10 @@ class Pengajuan extends BaseController
     public function index()
     {
         $model = new PengajuanModel();
-        $model->select('pengajuan.*, users.username');
+        $model->select('pengajuan.*, users.username, kas_keluar.file_nota');
         $model->join('users', 'users.id = pengajuan.user_id');
+        $model->join('kas_keluar', 'kas_keluar.pengajuan_id = pengajuan.id', 'left');
         $data['pengajuan'] = $model->findAll();
-
-        // ambil data kas keluar kalau mau ditampilkan
-        $kasKeluarModel = new KasKeluarModel();
-        $data['kasKeluar'] = $kasKeluarModel->findAll();
 
         return view('admin/pengajuan/index', $data);
     }
@@ -56,19 +53,34 @@ class Pengajuan extends BaseController
 
     public function process($id)
     {
+        $pengajuanModel = new PengajuanModel();
+        $kasKeluarModel = new KasKeluarModel();
+        $kasSaldoModel = new KasSaldoModel();
+
+        $pengajuan = $pengajuanModel->find($id);
+        $metode = $pengajuan['tipe'];
+
+        // jika tipe = uang_sendiri, admin tidak perlu upload nota
+        if ($metode == 'uang_sendiri') {
+            $kasKeluarModel->save([
+                'pengajuan_id' => $id,
+                'nominal'      => $pengajuan['nominal'],
+                'keterangan'   => $pengajuan['keterangan'],
+                'file_nota'    => null // kosong karena user yang bawa nota sendiri
+            ]);
+
+            $pengajuanModel->update($id, ['status' => 'diproses']);
+
+            return redirect()->to('/admin/pengajuan')->with('success', 'Pengajuan uang sendiri berhasil diproses tanpa upload nota.');
+        }
+
+        // jika tipe = minta_uang, wajib upload nota
         helper(['form']);
         $rules = [
             'file_nota' => 'uploaded[file_nota]|max_size[file_nota,1024]|ext_in[file_nota,jpg,jpeg,png,pdf]'
         ];
 
         if ($this->validate($rules)) {
-            $pengajuanModel = new PengajuanModel();
-            $kasKeluarModel = new KasKeluarModel();
-            $kasSaldoModel = new KasSaldoModel();
-
-            $pengajuan = $pengajuanModel->find($id);
-            $metode = $pengajuan['tipe'];
-
             // upload file
             $file = $this->request->getFile('file_nota');
             $newName = $file->getRandomName();
@@ -82,19 +94,17 @@ class Pengajuan extends BaseController
                 'file_nota'    => $newName
             ]);
 
-            // update saldo jika minta uang
-            if ($metode == 'minta_uang') {
-                $saldo = $kasSaldoModel->first();
-                if ($saldo) {
-                    $newSaldo = $saldo['saldo_akhir'] - $pengajuan['nominal'];
-                    $kasSaldoModel->update($saldo['id'], ['saldo_akhir' => $newSaldo]);
-                }
+            // update saldo
+            $saldo = $kasSaldoModel->first();
+            if ($saldo) {
+                $newSaldo = $saldo['saldo_akhir'] - $pengajuan['nominal'];
+                $kasSaldoModel->update($saldo['id'], ['saldo_akhir' => $newSaldo]);
             }
 
-            // update status pengajuan
+            // update status
             $pengajuanModel->update($id, ['status' => 'diproses']);
 
-            return redirect()->to('/admin/pengajuan')->with('success', 'Pengajuan berhasil diproses.');
+            return redirect()->to('/admin/pengajuan')->with('success', 'Pengajuan berhasil diproses dengan upload nota.');
         } else {
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan dalam memproses pengajuan.');
         }
