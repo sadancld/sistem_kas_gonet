@@ -56,54 +56,6 @@
                                 <i class="bi bi-speedometer2"></i> Dashboard
                             </a>
                         </li>
-<<<<<<< HEAD
-
-                        <?php if (session()->get('role') === 'admin'): ?>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('admin/users') ?>">
-                                    <i class="bi bi-people"></i> Manajemen User
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_masuk' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('admin/kas_masuk') ?>">
-                                    <i class="bi bi-cash-coin"></i> Pemasukan Kas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('admin/pengajuan') ?>">
-                                    <i class="bi bi-clipboard-check"></i> Pengajuan Kas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_keluar' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('admin/kas_keluar') ?>">
-                                    <i class="bi bi-wallet2"></i> Kas Keluar
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('admin/laporan') ?>">
-                                    <i class="bi bi-bar-chart"></i> Laporan
-                                </a>
-                            </li>
-                        <?php else: ?>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'pengajuan' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('user/pengajuan') ?>">
-                                    <i class="bi bi-plus-circle"></i> Ajukan Kas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= service('uri')->getSegment(2) === 'history' ? 'active fw-bold' : '' ?>"
-                                    href="<?= site_url('user/history') ?>">
-                                    <i class="bi bi-clock-history"></i> History Pengajuan
-                                </a>
-                            </li>
-                        <?php endif; ?>
-=======
                         <li class="nav-item">
                             <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/users') ?>">
                                 <i class="bi bi-people"></i> Manajemen User
@@ -124,7 +76,6 @@
                                 <i class="bi bi-bar-chart"></i> Laporan
                             </a>
                         </li>
->>>>>>> 6723685caa9bc5015c19a46c3f399bdf46b44347
                     </ul>
                 </div>
             </div>
@@ -139,7 +90,7 @@
     <!-- FOOTER -->
     <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div class="container">
-            <small>&copy; <?= date('Y') ?> Sistem Kas GoNet. Dibuat untuk manajemen kas teknisi & penagih.</small>
+            <small>&copy; <?= date('Y') ?> Sistem Kas GoNet. All right be served.</small>
         </div>
     </footer>
 

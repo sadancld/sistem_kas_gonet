@@ -7,16 +7,31 @@
     <title>Sistem Kas GoNet - Teknisi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        img {
+            height: 35px;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sistem Kas GoNet</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+       \   <div class="container-fluid">
+             <a href="/admin/dashboard" class="navbar-brand" id="sidebarToggle">
+          <img src="/uploads/logo.png" alt="Logo Gonet" class="brand-logo">
+          <span class="arsip-surat">Sistem Kas <span class="brand-name">GONET</span></span>
+        </a>
 
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -63,8 +78,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-light text-center py-3 mt-4">
-        <p class="mb-0">&copy; <?= date('Y') ?> Sistem Kas GoNet | Teknisi Panel</p>
+     <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            <small>&copy; <?= date('Y') ?> Sistem Kas GoNet. All right be served.</small>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
