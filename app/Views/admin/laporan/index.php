@@ -1,115 +1,72 @@
 <?= $this->extend('layouts/admin') ?>
-
 <?= $this->section('content') ?>
+
 <div class="container">
-    <h1 class="mb-4">Laporan Kas (Kas Keluar, Total Pemasukan & Saldo)</h1>
+    <h1 class="mb-4">Laporan Kas & Aktivitas</h1>
 
-    <!-- Filter dengan Kalender -->
-    <form method="get" class="mb-4">
-        <div class="row g-2 align-items-center">
-            <!-- Dari Tanggal -->
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="bi bi-calendar-date"></i>
-                    </span>
-                    <input type="date" name="start_date" value="<?= esc($start_date ?? '') ?>" class="form-control">
+    <div class="row">
+        <!-- Diagram Batang Kas -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <i class="bi bi-bar-chart"></i> Ringkasan Kas
                 </div>
-            </div>
-
-            <!-- Sampai Tanggal -->
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="bi bi-calendar-date-fill"></i>
-                    </span>
-                    <input type="date" name="end_date" value="<?= esc($end_date ?? '') ?>" class="form-control">
+                <div class="card-body">
+                    <canvas id="kasChart" height="200"></canvas>
                 </div>
-            </div>
-
-            <!-- Tombol -->
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-funnel"></i> Filter
-                </button>
-                <a href="<?= base_url('admin/laporan') ?>" class="btn btn-secondary">
-                    <i class="bi bi-arrow-repeat"></i> Reset
-                </a>
             </div>
         </div>
-    </form>
 
-    <canvas id="kasChart" height="120"></canvas>
+        <!-- Diagram Lingkaran Pengajuan & User -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <i class="bi bi-pie-chart"></i> Ringkasan Pengajuan & User
+                </div>
+                <div class="card-body">
+                    <canvas id="pengajuanUserChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ctx = document.getElementById('kasChart').getContext('2d');
+    // Data Ringkasan Kas
+    const kasLabels = ['Kas Masuk', 'Kas Keluar', 'Saldo'];
+    const kasData = [
+        <?= (float) $total_masuk['total'] ?>,
+        <?= (float) $total_keluar['total'] ?>,
+        <?= (float) $saldo['saldo_akhir'] ?? 0 ?>
+    ];
 
-    const bulanMasuk = <?= json_encode(array_column($kas['masuk'], 'bulan')) ?>;
-    const totalMasuk = <?= json_encode(array_map('floatval', array_column($kas['masuk'], 'total'))) ?>;
-
-    const bulanKeluar = <?= json_encode(array_column($kas['keluar'], 'bulan')) ?>;
-    const totalKeluar = <?= json_encode(array_map('floatval', array_column($kas['keluar'], 'total'))) ?>;
-
-    // Gabungkan semua tanggal
-    const allMonths = [...new Set([...bulanMasuk, ...bulanKeluar])];
-
-    const masukData = allMonths.map(m => {
-        const idx = bulanMasuk.indexOf(m);
-        return idx >= 0 ? totalMasuk[idx] : 0;
-    });
-
-    const keluarData = allMonths.map(m => {
-        const idx = bulanKeluar.indexOf(m);
-        return idx >= 0 ? totalKeluar[idx] : 0;
-    });
-
-    let runningTotalMasuk = 0;
-    const totalPemasukan = masukData.map(val => {
-        runningTotalMasuk += val;
-        return runningTotalMasuk;
-    });
-
-    let saldo = 0;
-    const saldoKas = allMonths.map((m, i) => {
-        saldo += (masukData[i] - keluarData[i]);
-        return saldo;
-    });
-
-    new Chart(ctx, {
+    new Chart(document.getElementById('kasChart'), {
+        type: 'bar',
         data: {
-            labels: allMonths,
-            datasets: [
-                {
-                    label: 'Saldo Kas',
-                    data: saldoKas,
-                    type: 'bar',
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    yAxisID: 'y',
-                },
-                {
-                    label: 'Kas Keluar',
-                    data: keluarData,
-                    type: 'bar',
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    yAxisID: 'y',
-                },
-                {
-                    label: 'Total Pemasukan',
-                    data: totalPemasukan,
-                    type: 'bar',
-                    backgroundColor: 'rgba(0, 200, 83, 0.7)',
-                    yAxisID: 'y',
-                }
-            ]
+            labels: kasLabels,
+            datasets: [{
+                label: 'Jumlah (Rp)',
+                data: kasData,
+                backgroundColor: [
+                    'rgba(0, 200, 83, 0.7)',   // Masuk - Hijau
+                    'rgba(255, 99, 132, 0.7)', // Keluar - Merah
+                    'rgba(54, 162, 235, 0.7)'  // Saldo - Biru
+                ],
+                borderColor: [
+                    'rgba(0, 200, 83, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
         },
         options: {
             responsive: true,
             plugins: {
-                legend: { position: 'top' },
-                title: { display: true, text: 'Traffic Kas (Periode Filter)' }
+                legend: { display: false },
+                title: { display: true, text: 'Ringkasan Kas' }
             },
             scales: {
                 y: {
@@ -123,5 +80,41 @@
             }
         }
     });
+
+    // Data Ringkasan Pengajuan & User
+    const pieLabels = ['Total Pengajuan', 'Pengajuan Pending', 'Total User'];
+    const pieData = [
+        <?= (int) $total_pengajuan ?>,
+        <?= (int) $pengajuan_pending ?>,
+        <?= (int) $total_users ?>
+    ];
+
+    new Chart(document.getElementById('pengajuanUserChart'), {
+        type: 'pie',
+        data: {
+            labels: pieLabels,
+            datasets: [{
+                data: pieData,
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.7)',  // Total Pengajuan - Orange
+                    'rgba(255, 205, 86, 0.7)',  // Pending - Kuning
+                    'rgba(75, 192, 192, 0.7)'   // User - Hijau Tosca
+                ],
+                borderColor: [
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: { display: true, text: 'Ringkasan Pengajuan & User' }
+            }
+        }
+    });
 </script>
+
 <?= $this->endSection() ?>

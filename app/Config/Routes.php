@@ -39,6 +39,11 @@ $routes->group('admin', ['filter' => 'auth:admin'], function ($routes) {
     $routes->get('pengajuan/reject/(:num)', 'Admin\Pengajuan::reject/$1');
     $routes->post('pengajuan/process/(:num)', 'Admin\Pengajuan::process/$1');
 
+    $routes->get('kas_keluar', 'Admin\KasKeluar::index');
+    $routes->get('kas_keluar/edit/(:num)', 'Admin\KasKeluar::edit/$1');
+    $routes->post('kas_keluar/update/(:num)', 'Admin\KasKeluar::update/$1');
+    $routes->get('kas_keluar/delete/(:num)', 'Admin\KasKeluar::delete/$1');
+
     $routes->get('laporan', 'Admin\Laporan::index');
 });
 

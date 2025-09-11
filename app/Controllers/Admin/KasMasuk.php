@@ -55,4 +55,41 @@ class KasMasuk extends BaseController
             ]);
         }
     }
+
+    // 👉 Tambahkan edit
+    public function edit($id)
+    {
+        $model = new KasMasukModel();
+        $data['kas'] = $model->find($id);
+
+        if (!$data['kas']) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Data kas masuk dengan ID $id tidak ditemukan");
+        }
+
+        return view('admin/kas_masuk/edit', $data);
+    }
+
+    // 👉 Tambahkan update
+    public function update($id)
+    {
+        $model = new KasMasukModel();
+
+        $data = [
+            'nominal' => $this->request->getVar('nominal'),
+            'keterangan' => $this->request->getVar('keterangan')
+        ];
+
+        $model->update($id, $data);
+
+        return redirect()->to('/admin/kas_masuk')->with('success', 'Data kas masuk berhasil diperbarui.');
+    }
+
+    // 👉 Tambahkan delete
+    public function delete($id)
+    {
+        $model = new KasMasukModel();
+        $model->delete($id);
+
+        return redirect()->to('/admin/kas_masuk')->with('success', 'Data kas masuk berhasil dihapus.');
+    }
 }
