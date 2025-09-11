@@ -2,21 +2,32 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\LaporanModel;
+use App\Models\KasSaldoModel;
+use App\Models\KasMasukModel;
+use App\Models\KasKeluarModel;
+use App\Models\PengajuanModel;
+use App\Models\UserModel;
 
 class Laporan extends BaseController
 {
     public function index()
     {
-        $laporanModel = new LaporanModel();
+        $kasSaldoModel   = new KasSaldoModel();
+        $kasMasukModel   = new KasMasukModel();
+        $kasKeluarModel  = new KasKeluarModel();
+        $pengajuanModel  = new PengajuanModel();
+        $userModel       = new UserModel();
 
-        $start_date = $this->request->getGet('start_date');
-        $end_date   = $this->request->getGet('end_date');
-
-        $data['title'] = 'Laporan Kas';
-        $data['kas'] = $laporanModel->getKasSummary($start_date, $end_date);
-        $data['start_date'] = $start_date;
-        $data['end_date']   = $end_date;
+        // Ambil data sama seperti di dashboard
+        $data = [
+            'title'             => 'Laporan Kas',
+            'saldo'             => $kasSaldoModel->first(),
+            'total_masuk'       => $kasMasukModel->selectSum('nominal', 'total')->first(),
+            'total_keluar'      => $kasKeluarModel->selectSum('nominal', 'total')->first(),
+            'total_pengajuan'   => $pengajuanModel->countAll(),
+            'total_users'       => $userModel->where('role !=', 'admin')->countAllResults(),
+            'pengajuan_pending' => $pengajuanModel->where('status', 'pending')->countAllResults()
+        ];
 
         return view('admin/laporan/index', $data);
     }

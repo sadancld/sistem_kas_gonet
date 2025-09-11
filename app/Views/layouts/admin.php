@@ -62,6 +62,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/laporan') ?>">
+                                <i class="bi bi-bar-chart"></i> Laporan
+                            </a>
+                        </li>
+
+                         <!-- Divider -->
+                         <hr class="border-top my-2">
+
+                        <li class="nav-item">
                             <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_masuk' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/kas_masuk') ?>">
                                 <i class="bi bi-cash-coin"></i> Kas Masuk
                             </a>
@@ -69,11 +78,6 @@
                          <li class="nav-item">
                             <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_keluar' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/kas_keluar') ?>">
                                 <i class="bi bi-cash-stack"></i> Kas Keluar
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= service('uri')->getSegment(2) === 'laporan' ? 'active fw-bold' : '' ?>" href="<?= site_url('admin/laporan') ?>">
-                                <i class="bi bi-bar-chart"></i> Laporan
                             </a>
                         </li>
                         <li class="nav-item">
