@@ -41,7 +41,7 @@
                                 <td><?= $p['deadline'] ? date('d/m/Y', strtotime($p['deadline'])) : '-' ?></td>
                                 <td>
                                     <span class="badge bg-<?=
-                                                            $p['status'] == 'diterima' ? 'success' : ($p['status'] == 'ditolak' ? 'danger' : ($p['status'] == 'diproses' ? 'warning' : 'secondary'))
+                                                            $p['status'] == 'diterima' ? 'success' : ($p['status'] == 'ditolak' ? 'danger' : ($p['status'] == 'selesai' ? 'warning' : 'secondary'))
                                                             ?>">
                                         <?= ucfirst($p['status']) ?>
                                     </span>
