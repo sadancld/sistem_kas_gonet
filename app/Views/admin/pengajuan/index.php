@@ -45,7 +45,7 @@
                     <td><?= $p['deadline'] ? date('d/m/Y', strtotime($p['deadline'])) : '-' ?></td>
                     <td>
                         <span class="badge bg-<?=
-                                                $p['status'] == 'diterima' ? 'success' : ($p['status'] == 'ditolak' ? 'danger' : ($p['status'] == 'diproses' ? 'warning' : 'secondary'))
+                                                $p['status'] == 'diterima' ? 'success' : ($p['status'] == 'ditolak' ? 'danger' : ($p['status'] == 'selesai' ? 'warning' : 'secondary'))
                                                 ?>">
                             <?= ucfirst($p['status']) ?>
                         </span>
@@ -55,17 +55,26 @@
                             <a href="<?= site_url('admin/pengajuan/approve/' . $p['id']) ?>" class="btn btn-sm btn-success">Setujui</a>
                             <a href="<?= site_url('admin/pengajuan/reject/' . $p['id']) ?>" class="btn btn-sm btn-danger">Tolak</a>
                         <?php elseif ($p['status'] == 'diterima'): ?>
-                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#processModal<?= $p['id'] ?>">
-                                Proses
-                            </button>
-                        <?php elseif ($p['status'] == 'diproses' && $p['file_nota']): ?>
+                            <?php if (!empty($p['file_nota'])): ?>
+                                <a href="<?= base_url('uploads/nota/' . $p['file_nota']) ?>" target="_blank" class="btn btn-sm btn-info">Lihat File</a>
+
+                                <form action="<?= site_url('admin/pengajuan/process/' . $p['id']) ?>" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-primary">Proses</button>
+                                </form>
+                            <?php else: ?>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#processModal<?= $p['id'] ?>">
+                                    Proses
+                                </button>
+                            <?php endif; ?>
+
+                        <?php elseif ($p['status'] == 'selesai' && $p['file_nota']): ?>
                             <a href="<?= base_url('uploads/nota/' . $p['file_nota']) ?>" target="_blank" class="btn btn-sm btn-info">Lihat File</a>
                         <?php endif; ?>
                     </td>
                 </tr>
 
-                <!-- Modal proses hanya muncul kalau status diterima -->
-                <?php if ($p['status'] == 'diterima'): ?>
+                <!-- Modal upload hanya jika file nota belum ada -->
+                <?php if ($p['status'] == 'diterima' && empty($p['file_nota'])): ?>
                     <div class="modal fade" id="processModal<?= $p['id'] ?>" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
