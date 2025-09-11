@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?= $title ?? 'Sistem Kas & Penggajian - GoNet' ?></title>
+        <title><?= $title ?? 'Sistem Kas - GoNet' ?></title>
 
         <!-- Bootstrap 5 CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -321,7 +321,7 @@
                         </button>
                         <a href="/admin/dashboard" class="navbar-brand d-flex align-items-center">
                             <img src="/uploads/logo.png" alt="Logo GoNet" class="brand-logo me-2">
-                            <span class="arsip-surat">Sistem Kas & <span class="brand-name">Penggajian</span></span>
+                            <span class="arsip-surat">Sistem Kas - <span class="brand-name">Gonet</span></span>
                         </a>
                     </div>
 
@@ -366,11 +366,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= service('uri')->getSegment(2) === 'karyawan' ? 'active' : '' ?>" href="#">
-                            <i class="bi bi-people-fill"></i> <span>Data Karyawan</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link <?= service('uri')->getSegment(2) === 'users' ? 'active' : '' ?>" href="<?= site_url('admin/users') ?>">
                             <i class="bi bi-person-badge"></i> <span>Manajemen User</span>
                         </a>
@@ -383,11 +378,6 @@
                     <li class="nav-item">
                         <a class="nav-link <?= service('uri')->getSegment(2) === 'kas_keluar' ? 'active' : '' ?>" href="<?= site_url('admin/kas_keluar') ?>">
                             <i class="bi bi-cash-stack"></i> <span>Kas Keluar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= service('uri')->getSegment(2) === 'penggajian' ? 'active' : '' ?>" href="#">
-                            <i class="bi bi-wallet2"></i> <span>Penggajian</span>
                         </a>
                     </li>
                     <li class="nav-item">
